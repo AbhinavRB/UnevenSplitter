@@ -9,84 +9,85 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="splitcss.css">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
 </head>
 <body>
 	<div class="container">
-
-		<span id="titleSpan">Split bills unevenly!</span><br>
-		<label for="billTotal">Enter bill total</label>
-		<input type="number" id="billTotal" name="billTotal" class="entryBox" step="0.01"><br>
-		<label for="numSharers">Enter number of sharers</label>
-		<input type="number" min="1" id="numSharers" name="numSharers" class="entryBox"><br>
-	
-    	<span id="checkSpan">Are there any items to be claimed separately?</span>
-    	<div id="sharingCheck" onclick="showTable()"></div>
-
-		<div id="itemList" class="hide">
-			<input type="text" id="itemName" placeholder="Enter item name" class="entryBox">
-			<input type="number" id="itemPrice" step="0.01" placeholder="xx.xx" class="entryBox">
-			<input type="text" id="sharerNames" placeholder="Enter names separated by space" class="entryBox">
-			<button id="addItem" class="btnClass" onclick="addItem()">Add Item</button>
-			<table id="itemTable">
-			</table>
+		<div class="row" id="div1">
+			<h1 class="titleText">Split your bills unevenly!</h1><br>
 		</div>
-		<button id="splitBill" class="btnClass" onclick="splitBill()">Split Bill</button>
-
-		<script type="text/javascript">
-			var defaultTop = "70%";
-			var currentTop = "85%";
-			var checkFlag = false;
-			// var mainButton = document.getElementById('splitBill');
-
-			function showTable() {
-				document.getElementById('itemList').classList.toggle("hide");
-				var box = document.getElementById('sharingCheck');
-				if (!checkFlag) {
-					box.style.backgroundColor = "#008080";
-					document.getElementById('splitBill').style.top = currentTop;
-					checkFlag = true;
-				}
-				else {
-					box.style.backgroundColor = "white";
-					document.getElementById('splitBill').style.top = defaultTop;
-					checkFlag = false;	
-				}
-				
-			}
-			function deleteRow(r) {
-				var i = r.parentNode.parentNode.rowIndex;
-    			document.getElementById("itemTable").deleteRow(i);
-    			currentTop = Number(currentTop.slice(0, -1)) - 3;
-    			document.getElementById('splitBill').style.top = currentTop+"%";
-
-			}
-			function addItem() {
-				var row = document.createElement("tr");
-				var itemtd = document.createElement("td");
-				var pricetd = document.createElement("td");
-				var sharertd = document.createElement("td");
-				var removetd = document.createElement("td");
-
-				itemtd.innerHTML = itemName.value;
-				pricetd.innerHTML = itemPrice.value;
-				sharertd.innerHTML = sharerNames.value;
-				removetd.innerHTML = "<button id='removeButton' onclick='deleteRow(this)'>Remove</button>";
-
-				row.appendChild(itemtd);
-				row.appendChild(pricetd);
-				row.appendChild(sharertd);
-				row.appendChild(removetd);
-
-				itemTable.appendChild(row);
-
-				currentTop = Number(currentTop.slice(0, -1)) + 3;
-    			mainButton.style.top = currentTop+"%";
-
-			}
-			function splitBill() {
-				alert("Yeah, this needs to happen.")
-			}
-		</script>
+		<div class="row" id="div2">
+			<span class="textSpan">Bill total:</span>
+			<input type="number" id="billTotal" class="inputBox" step="0.01"><br><br>
+			<span class="textSpan">Number of sharers:</span>
+			<input type="number" id="numSharers" class="inputBox"><br><br>
+			<span class="textSpan">Individual claims?</span>
+			<!-- <div class="checkElement unchecked" id="shareCheck" onclick="showTable()"></div> -->
+			<span class="checkElement" id="shareCheck" onclick="showTable()">Yes/<b><u>No</u></b></span><br><br>
+		</div>
+		<div class="row hide" id="div3">
+			<input type="text" class="inputBox2" placeholder="[Item name]" id="itemName">
+			<input type="number" class="inputBox2" placeholder="[Item price]" id="itemPrice" step="0.01"><br><br>
+			<input type="text" class="inputBox2" id="sharerNames" placeholder="[Sharers]">
+			<button class="buttonClass" id="addButton" onclick="addItem()">Add</button><br><br>
+			<table id="itemTable" class="itemTable"></table>
+		</div>
+		<div class="row" id="div4">
+			<button class="buttonClass" id="submitButton" onclick="splitBill()">Split!</button>
+		</div>
 	</div>
+
+	<!-- JavaScript section below -->
+
+	<script type="text/javascript">
+
+		var checkFlag = false;
+
+		function showTable() {
+			document.getElementById('div3').classList.toggle('hide');
+			if (!checkFlag) {
+				document.getElementById('shareCheck').innerHTML = "<b><u>Yes</u><b>/No";
+				checkFlag = true;
+			}
+			else {
+				document.getElementById('shareCheck').innerHTML = "Yes/<b><u>No</u><b>";
+				checkFlag = false;
+			}
+		}
+
+		function deleteRow(r) {
+			var i = r.parentNode.parentNode.rowIndex;
+			document.getElementById("itemTable").deleteRow(i);
+		}
+
+		function addItem() {
+			var tableRow = document.createElement('tr');
+			var name = document.createElement('td');
+			name.innerHTML = document.getElementById('itemName').value;
+			var price = document.createElement('td');
+			price.innerHTML = document.getElementById('itemPrice').value;
+			var sharers = document.createElement('td');
+			sharers.innerHTML = document.getElementById('sharerNames').value;
+			var removeTd = document.createElement('td');
+			removeTd.innerHTML = "<button class='remButton' onclick='deleteRow(this)'>x</button>";
+
+			tableRow.appendChild(name);
+			tableRow.appendChild(price);
+			tableRow.appendChild(sharers);
+			tableRow.appendChild(removeTd);
+
+			document.getElementById('itemTable').appendChild(tableRow);
+
+			document.getElementById('itemName').value = "";
+			document.getElementById('itemPrice').value = "";
+			document.getElementById('sharerNames').value = "";
+		}
+
+		function splitBill() {
+			alert("This needs to happen.");
+		}
+	</script>
 </body>
 </html>
