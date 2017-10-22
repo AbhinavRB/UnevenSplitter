@@ -10,40 +10,19 @@ class Item:
 
 class Splitter:
 
+	def __init__(self, total, num_sharers, claimed_items):
+		self.total = total
+		self.num_sharers = num_sharers
+		self.claimed_items = claimed_items		
+
 	def split(self):
-		self.__get_input()
-		self.__check_claims()
+		self.__calculate_claimed_total()
 		self.__calculate_base()
 		self.__split()
 		self.__round_and_finish()
 
-	def __get_input(self):		
-		self.total       = float(input("Enter total bill amount: "))
-		self.num_sharers = int(input("Enter number of sharers: "))		
-
-	def __check_claims(self):
-		"""enter items that people are paying for separately"""
-
-		self.claimed_items = []
-		self.claimed_total = 0
-
-		claimable = input("Are there any items to be claimed separately? (y/n): ")
-		print()
-		
-		while(claimable.lower() == "y"):
-
-			i_name     = input("Item name: ")
-			i_price    = float(input("Item price: "))
-			i_claimers = input("Enter all claimers (separated by spaces): ").split(" ")
-			confirm    = input("Save item? (y/n): ")
-			item       = Item(i_name, i_price, i_claimers)
-
-			if confirm.lower() != "n":
-				self.claimed_items.append(item)
-				self.claimed_total += item.price
-
-			claimable = input("Add new item? (y/n): ")
-			print()		
+	def __calculate_claimed_total():
+		self.claimed_total = sum([item.price for item in claimed_items])
 
 	def __calculate_base(self):
 		"""calculate base amount that everyone has to pay"""
@@ -85,5 +64,6 @@ class Splitter:
 
 		print("Total amount after rounding off = ${:.2f}\n".format(round(total_after_rounding, 2)))
 
-splitter = Splitter()
-splitter.split()
+if __name__ == '__main__':	
+	splitter = Splitter()
+	splitter.split()
