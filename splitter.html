@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Split your bills!</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="splitcss.css">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+
+		<span id="titleSpan">Split bills unevenly!</span><br>
+		<label for="billTotal">Enter bill total</label>
+		<input type="number" id="billTotal" name="billTotal" class="entryBox" step="0.01"><br>
+		<label for="numSharers">Enter number of sharers</label>
+		<input type="number" min="1" id="numSharers" name="numSharers" class="entryBox"><br>
+	
+    	<span id="checkSpan">Are there any items to be claimed separately?</span>
+    	<div id="sharingCheck" onclick="showTable()"></div>
+
+		<div id="itemList" class="hide">
+			<input type="text" id="itemName" placeholder="Enter item name" class="entryBox">
+			<input type="number" id="itemPrice" step="0.01" placeholder="xx.xx" class="entryBox">
+			<input type="text" id="sharerNames" placeholder="Enter names separated by space" class="entryBox">
+			<button id="addItem" class="btnClass" onclick="addItem()">Add Item</button>
+			<table id="itemTable">
+			</table>
+		</div>
+		<button id="splitBill" class="btnClass" onclick="splitBill()">Split Bill</button>
+
+		<script type="text/javascript">
+			var defaultTop = "70%";
+			var currentTop = "85%";
+			var checkFlag = false;
+			// var mainButton = document.getElementById('splitBill');
+
+			function showTable() {
+				document.getElementById('itemList').classList.toggle("hide");
+				var box = document.getElementById('sharingCheck');
+				if (!checkFlag) {
+					box.style.backgroundColor = "#008080";
+					document.getElementById('splitBill').style.top = currentTop;
+					checkFlag = true;
+				}
+				else {
+					box.style.backgroundColor = "white";
+					document.getElementById('splitBill').style.top = defaultTop;
+					checkFlag = false;	
+				}
+				
+			}
+			function deleteRow(r) {
+				var i = r.parentNode.parentNode.rowIndex;
+    			document.getElementById("itemTable").deleteRow(i);
+    			currentTop = Number(currentTop.slice(0, -1)) - 3;
+    			document.getElementById('splitBill').style.top = currentTop+"%";
+
+			}
+			function addItem() {
+				var row = document.createElement("tr");
+				var itemtd = document.createElement("td");
+				var pricetd = document.createElement("td");
+				var sharertd = document.createElement("td");
+				var removetd = document.createElement("td");
+
+				itemtd.innerHTML = itemName.value;
+				pricetd.innerHTML = itemPrice.value;
+				sharertd.innerHTML = sharerNames.value;
+				removetd.innerHTML = "<button id='removeButton' onclick='deleteRow(this)'>Remove</button>";
+
+				row.appendChild(itemtd);
+				row.appendChild(pricetd);
+				row.appendChild(sharertd);
+				row.appendChild(removetd);
+
+				itemTable.appendChild(row);
+
+				currentTop = Number(currentTop.slice(0, -1)) + 3;
+    			mainButton.style.top = currentTop+"%";
+
+			}
+			function splitBill() {
+				alert("Yeah, this needs to happen.")
+			}
+		</script>
+	</div>
+</body>
+</html>
