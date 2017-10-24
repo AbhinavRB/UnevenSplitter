@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import request
+
+import json
 import split as sp
 
 app = Flask(__name__)
@@ -8,7 +10,7 @@ app = Flask(__name__)
 def handler():
 	total = request.form['total']
 	num_sharers = request.form['num_sharers']
-	claimed_items = request.form['items']
-
+	claimed_items = request.form['items']	
+	
 	splitter = sp.Splitter(total, num_sharers, claimed_items)
-	return splitter.split()
+	return splitter.calc_split()
