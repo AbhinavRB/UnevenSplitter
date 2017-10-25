@@ -35,8 +35,8 @@
 			<table id="itemTable" class="itemTable"></table>
 		</div>
 		<div class="row" id="div4">
-			<!-- <button class="buttonClass" id="submitButton" onclick="splitBill()">Split!</button> -->
-			<button class="buttonClass" id="submitButton" onclick="deleteThisLater()">Split!</button>
+			<button class="buttonClass" id="submitButton" onclick="splitBill()">Split!</button>
+			<!-- <button class="buttonClass" id="submitButton" onclick="displaySplit()">Split!</button> -->
 		</div>
 	</div>
 
@@ -120,39 +120,70 @@
 
 			xhr.onreadystatechange = function () {
 				if (xhr.readystate == 4 && xhr.status == 200) {
-					alert(xhr.responseText);
+					displaySplit(JSON.parse(xhr.responseText));
 				}
 			}
 		}
 
-		// DELETE THIS SECTION. BUTTON TESTING. 
-
 		var clickFlag = false;
 
-		function deleteThisLater() {
-			alert("Kamehameha!!");
+		function displaySplit(data) {
+			document.getElementById('submitButton').innerHTML = "";
+
 			if (!clickFlag) {
-				var data = {
-					"share": {
-						"AK": "15.17",
-						"AR": "15.17",
-						"MK": "14.18",
-						"AB": "14.18",
-						"__rest": "13.30"
-					},
-					"total": "72.00"
-				}
+
+				var vhIncrease = 15;
+
+				// var data = {
+				// 	"share": {
+				// 		"AK": "15.17",
+				// 		"AR": "15.17",
+				// 		"MK": "14.18",
+				// 		"AB": "14.18",
+				// 		"XY": "20.25",
+				// 		"AA": "19.74",
+				// 		"WR": "7.43",
+				// 		"TX": "11.12",
+				// 		"RE": "34.77",
+				// 		"NS": "67.82",
+				// 		"TY": "832.12",
+				// 		"RT": "8.4",
+				// 		"OP": "56.25",
+				// 		"QA": "34.34",
+				// 		"TG": "22.12",
+				// 		"GT": "63.43",
+				// 		"AX": "22.01",
+				// 		"DE": "1.23",
+				// 		"CZ": "87.23",
+				// 		"__rest": "13.30"
+				// 	},
+				// 	"total": "72.00"
+				// }
 				var finalSplit = "";
 				for (var sharer in data.share) {
 					finalSplit += sharer + " pays $" + data.share[sharer] + "<br>";
+					if (vhIncrease < 80) {
+						vhIncrease += 5;
+					}
+					
 				}
-				finalSplit += "<span class='minimizer'>[press to minimize]</span>";
+				finalSplit += "<span style='font-size: 14px;'>[press to minimize]</span>";
 
-				document.getElementById('submitButton').innerHTML = finalSplit;
+				document.getElementById('submitButton').style.height = vhIncrease + "vh";
+				document.getElementById('submitButton').style.transition = "height 0.5s ease-in-out";
+				setTimeout(function () {
+					document.getElementById('submitButton').innerHTML = finalSplit;
+				}, 500);
+				
 				clickFlag = true;
 			}
 			else {
-				document.getElementById('submitButton').innerHTML = "Split!";
+				document.getElementById('submitButton').style.height = "10vh";
+				document.getElementById('submitButton').style.transition = "height 0.5s ease-in-out";
+				setTimeout(function () {
+					document.getElementById('submitButton').innerHTML = "Split!";
+				}, 500);
+				
 				clickFlag = false;
 			}	
 
