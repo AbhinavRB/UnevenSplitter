@@ -86,7 +86,6 @@
 		}
 
 		function splitBill() {
-			// alert("This needs to happen.");
 
 			var data = {};
 			data.total = Number(document.getElementById('billTotal').value);
@@ -100,6 +99,7 @@
 			   	itemShare.price = row.cells[1].innerHTML;
 			   	itemShare.claimers = row.cells[2].innerHTML;
 
+			   	// Some validation
 			   	var nocode = /^[\w-]+$/;
 			   	var rightformat = /^\w+(\s\w+)*$/;
 
@@ -111,9 +111,9 @@
 			   	}
 			}
 
-			// alert(JSON.stringify(data));
+			// Sending data to the server
 			var xhr = new XMLHttpRequest();
-			xhr.open("post", "/UnevenSplitter/UnevenSplitter/split");
+			xhr.open("post", "/split");
 			xhr.setRequestHeader("Content-Type", "application/json");
 			xhr.send(data);
 
