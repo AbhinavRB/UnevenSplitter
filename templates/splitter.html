@@ -35,7 +35,8 @@
 			<table id="itemTable" class="itemTable"></table>
 		</div>
 		<div class="row" id="div4">
-			<button class="buttonClass" id="submitButton" onclick="splitBill()">Split!</button>
+			<!-- <button class="buttonClass" id="submitButton" onclick="splitBill()">Split!</button> -->
+			<button class="buttonClass" id="submitButton" onclick="deleteThisLater()">Split!</button>
 		</div>
 	</div>
 
@@ -122,6 +123,39 @@
 					alert(xhr.responseText);
 				}
 			}
+		}
+
+		// DELETE THIS SECTION. BUTTON TESTING. 
+
+		var clickFlag = false;
+
+		function deleteThisLater() {
+			alert("Kamehameha!!");
+			if (!clickFlag) {
+				var data = {
+					"share": {
+						"AK": "15.17",
+						"AR": "15.17",
+						"MK": "14.18",
+						"AB": "14.18",
+						"__rest": "13.30"
+					},
+					"total": "72.00"
+				}
+				var finalSplit = "";
+				for (var sharer in data.share) {
+					finalSplit += sharer + " pays $" + data.share[sharer] + "<br>";
+				}
+				finalSplit += "<span class='minimizer'>[press to minimize]</span>";
+
+				document.getElementById('submitButton').innerHTML = finalSplit;
+				clickFlag = true;
+			}
+			else {
+				document.getElementById('submitButton').innerHTML = "Split!";
+				clickFlag = false;
+			}	
+
 		}
 	</script>
 </body>
