@@ -28,9 +28,9 @@
 			<span class="checkElement" id="shareCheck" onclick="showTable()">Yes/<b><u>No</u></b></span><br><br>
 		</div>
 		<div class="row hide" id="div3">
-			<input type="text" class="inputBox2" placeholder="[Item name]" id="itemName">
+			<input type="text" class="inputBox2" placeholder="[Item name]" size="15" maxlength="15" id="itemName">
 			<input type="number" class="inputBox2" placeholder="[Item price]" id="itemPrice" step="0.01"><br><br>
-			<input type="text" class="inputBox2" id="sharerNames" placeholder="[Sharers]">
+			<input type="text" class="inputBox2" size="15" maxlength="15" id="sharerNames" placeholder="[Sharers]">
 			<button class="buttonClass" id="addButton" onclick="addItem()">Add</button><br><br>
 			<table id="itemTable" class="itemTable"></table>
 		</div>
@@ -69,7 +69,7 @@
 			var price = document.createElement('td');
 			price.innerHTML = document.getElementById('itemPrice').value;
 			var sharers = document.createElement('td');
-			sharers.innerHTML = document.getElementById('sharerNames').value;
+			sharers.innerHTML = document.getElementById('sharerNames').value.trim();
 			var removeTd = document.createElement('td');
 			removeTd.innerHTML = "<button class='remButton' onclick='deleteRow(this)'>x</button>";
 
@@ -86,7 +86,42 @@
 		}
 
 		function splitBill() {
-			alert("This needs to happen.");
+			// alert("This needs to happen.");
+
+			var data = {};
+			data.total = Number(document.getElementById('billTotal').value);
+			data.num_sharers = Number(document.getElementById('numSharers').value);
+			data.items = Array();
+
+			var table = document.getElementById("itemTable");
+			for (var i = 0, row; row = table.rows[i]; i++) {
+				var itemShare = {};
+			   	itemShare.name = row.cells[0].innerHTML;
+			   	itemShare.price = row.cells[1].innerHTML;
+			   	itemShare.claimers = row.cells[2].innerHTML;
+
+			   	var nocode = /^[\w-]+$/;
+			   	var rightformat = /^\w+(\s\w+)*$/;
+
+			   	if (nocode.exec(itemShare.name) == null || rightformat.exec(itemShare.claimers) == null) {
+			   		alert("Please check the input.");
+			   	}
+			   	else {
+			   		data.items.push(itemShare);
+			   	}
+			}
+
+			// alert(JSON.stringify(data));
+			var xhr = new XMLHttpRequest();
+			xhr.open("post", "/UnevenSplitter/UnevenSplitter/split");
+			xhr.setRequestHeader("Content-Type", "x-www-form-urlencoded");
+			xhr.send(JSON.stringify(data));
+
+			xhr.onreadystatechange = function () {
+				if (xhr.readystate == 4 && xhr.status == 200) {
+					alert(xhr.responseText);
+				}
+			}
 		}
 	</script>
 </body>
