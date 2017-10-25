@@ -114,8 +114,8 @@
 			// alert(JSON.stringify(data));
 			var xhr = new XMLHttpRequest();
 			xhr.open("post", "/UnevenSplitter/UnevenSplitter/split");
-			xhr.setRequestHeader("Content-Type", "x-www-form-urlencoded");
-			xhr.send(JSON.stringify(data));
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(data);
 
 			xhr.onreadystatechange = function () {
 				if (xhr.readystate == 4 && xhr.status == 200) {
