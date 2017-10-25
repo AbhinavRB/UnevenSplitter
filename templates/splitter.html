@@ -101,7 +101,7 @@
 			   	itemShare.claimers = row.cells[2].innerHTML;
 
 			   	// Some validation
-			   	var nocode = /^[\w-]+$/;
+			   	var nocode = /^[\w\s-]+$/;
 			   	var rightformat = /^\w+(\s\w+)*$/;
 
 			   	if (nocode.exec(itemShare.name) == null || rightformat.exec(itemShare.claimers) == null) {

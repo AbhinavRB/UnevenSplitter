@@ -7,7 +7,7 @@ class Splitter:
 	def __init__(self, total, num_sharers, claimed_items):
 		self.total = float(total)
 		self.num_sharers = int(num_sharers)
-		self.claimed_items = json.loads(claimed_items)		
+		self.claimed_items = claimed_items	
 
 	def calc_split(self):
 		self.__calculate_claimed_total()
@@ -32,9 +32,9 @@ class Splitter:
 		for item in self.claimed_items:	
 			for claimer in item['claimers'].split():
 				if(claimer in self.share):
-					self.share[claimer] += item['price'] / len(item['claimers'].split())
+					self.share[claimer] += float(item['price']) / len(item['claimers'].split())
 				else:			
-					self.share[claimer] = item['price'] / len(item['claimers'].split())
+					self.share[claimer] = float(item['price']) / len(item['claimers'].split())
 
 		for claimer in self.share:
 			self.share[claimer] += self.base_total_per_head
