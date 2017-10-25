@@ -1,0 +1,125 @@
+body {
+    background: linear-gradient(75deg, #004d4d 50%, #008080 50%);
+    font-size: 20px;
+    font-family: 'Comfortaa', cursive;
+    color: white;
+}
+
+.hide {
+    display: none;
+}
+
+.titleText {
+    margin-left: 2%;
+}
+
+.textSpan {
+    position: absolute;
+    left: 0;
+    margin-left: 2%;
+}
+
+.inputBox {
+    position: absolute;
+    right: 0;
+    margin-right: 5%;
+    width: 30%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+.inputBox:focus, .inputBox2:focus {
+    border-bottom: 3px solid white;
+}
+
+.inputBox2 {
+    position: absolute;
+    margin: 2%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+.checkElement {
+    position: absolute;
+    right: 0;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.buttonClass {
+    background: linear-gradient(75deg, #00cccc 50%, #009999 50%);
+    outline: none;
+    box-shadow: 0px 2px 1px #585858;
+    border: none;
+}
+
+.remButton {
+    background-color: transparent;
+    border: 2px solid white;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+}
+
+#itemName {
+    left: 0;
+    width: 50%;
+}
+
+#itemPrice {
+    right: 0;
+    width: 40%;
+}
+
+#sharerNames {
+    left: 0;
+    width: 70%;
+}
+
+#addButton {
+    position: absolute;
+    right: 0;
+    width: 20%;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+
+.itemTable {
+    position: absolute;
+    margin: 2%;
+    width: 96%;
+}
+
+tr {
+    border-bottom: 1px solid #d7d7d7;
+}
+
+#submitButton {
+    position: absolute;
+    bottom: 2%;
+    width: 80%;
+    height: 10vh;
+    left: 10%;
+}
+
+@media screen and (max-height: 480px){
+    #submitButton{
+        display: none;
+    }
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #d7d7d7;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #d7d7d7;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #d7d7d7;
+}
