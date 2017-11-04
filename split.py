@@ -4,10 +4,11 @@ EVERYONE_ELSE = "__rest"
 
 class Splitter:
 
-	def __init__(self, total, num_sharers, claimed_items):
+	def __init__(self, total, num_sharers, claimed_items):		
+
 		self.total = float(total)
-		self.num_sharers = int(num_sharers)
-		self.claimed_items = claimed_items	
+		self.num_sharers = int(num_sharers)		
+		self.claimed_items = claimed_items
 
 	def calc_split(self):
 		self.__calculate_claimed_total()
@@ -21,8 +22,8 @@ class Splitter:
 	def __calculate_base(self):
 		"""calculate base amount that everyone has to pay"""
 
-		self.base_total          = self.total - self.claimed_total
-		self.base_total_per_head = self.base_total / self.num_sharers
+		self.base_total          = self.total - self.claimed_total	
+		self.base_total_per_head = self.base_total / self.num_sharers	
 
 	def __split(self):
 		"""calculate everyone's total share"""
