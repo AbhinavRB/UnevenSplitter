@@ -11,10 +11,13 @@ class Splitter:
 		self.claimed_items = claimed_items
 
 	def calc_split(self):
-		self.__calculate_claimed_total()
-		self.__calculate_base()
-		self.__split()
-		return self.__round_and_finish()
+		try:
+			self.__calculate_claimed_total()
+			self.__calculate_base()
+			self.__split()
+			return self.__round_and_finish()
+		except Exception as e:
+			return json.dumps({"error": "An error occurred. Please check whether your input is correct."})
 
 	def __calculate_claimed_total(self):		
 		self.claimed_total = sum([float(item['price']) for item in self.claimed_items])		

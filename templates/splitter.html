@@ -160,13 +160,20 @@
 				// 	"total": "72.00"
 				// }
 				var finalSplit = "";
-				for (var sharer in data.share) {
-					finalSplit += sharer + " pays $" + data.share[sharer] + "<br>";
-					if (vhIncrease < 80) {
-						vhIncrease += 5;
-					}
-					
+
+				if (data.error) {
+					finalSplit = data.error;
 				}
+
+				else {
+					for (var sharer in data.share) {
+						finalSplit += sharer + " pays $" + data.share[sharer] + "<br>";
+						if (vhIncrease < 80) {
+							vhIncrease += 5;
+						}						
+					}												
+				}
+
 				finalSplit += "<span style='font-size: 14px;'>[press to minimize]</span>";
 
 				document.getElementById('submitButton').style.height = vhIncrease + "vh";
