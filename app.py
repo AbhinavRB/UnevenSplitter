@@ -33,7 +33,7 @@ def validate_input(total, num_sharers, claimed_items):
 	error_msg = ""
 
 	if total < 0:
-		error_msg += "The total amount can't be negative. "
+		error_msg += "The total amount you entered is invalid. "
 
 	if num_sharers < 1:
 		error_msg += "At least one sharer is required. "

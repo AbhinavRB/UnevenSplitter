@@ -1,6 +1,6 @@
 import json
 
-EVERYONE_ELSE = "__rest"
+EVERYONE_ELSE = "Everyone (else)"
 
 class Splitter:
 
